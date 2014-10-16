@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  registration_open_date: 2014-10-15 22:23:35
+  start_date: 2014-10-15 22:23:35
+  end_date: 2014-10-15 22:23:35
+  max_registration_limit: 1
+
+two:
+  name: MyString
+  registration_open_date: 2014-10-15 22:23:35
+  start_date: 2014-10-15 22:23:35
+  end_date: 2014-10-15 22:23:35
+  max_registration_limit: 1
