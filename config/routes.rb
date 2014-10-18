@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+  get 'event/index'
+  get 'event/create'
+  get 'event/update'
+  get 'event/destroy'
+
+  get 'admin' => 'admin#index'
+
   devise_for :users
 
   unauthenticated :user do

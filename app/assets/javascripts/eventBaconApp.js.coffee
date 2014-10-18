@@ -1,4 +1,4 @@
-angular.module('eventBaconApp', ['ngResource'])
+eventBaconApp = angular.module('eventBaconApp', ['ngResource'])
 
 eventBaconApp.config ($httpProvider) ->
   authToken = $("meta[name=\"csrf-token\"]").attr("content")
@@ -8,7 +8,3 @@ $(document).on 'page:load', ->
   $('[ng-app]').each ->
     module = $(this).attr('ng-app')
     angular.bootstrap(this, [module])
-
-defaults = $http.defaults.headers
-defaults.patch = defaults.patch || {}
-defaults.patch['Content-Type'] = 'application/json'
