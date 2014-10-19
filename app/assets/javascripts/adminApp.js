@@ -1,4 +1,10 @@
-var adminApp = angular.module('adminApp',['ngResource']);
+var adminApp = angular.module('adminApp',['ngResource', 'ngRoute']);
+
+adminApp.config(function ($routeProvider) {
+  $routeProvider
+    .when('/admin', { templateUrl: "templates/admind/index.html", controller: "DashboardController" }
+  )
+});
 
 adminApp.controller('DashboardController', function($scope, Event){
   $scope.event = {};
@@ -9,6 +15,7 @@ adminApp.controller('DashboardController', function($scope, Event){
   };
   Event.all().then(function(events){
     $scope.events = events;
+    $scope.eventCount = events.length;
   });
 });
 

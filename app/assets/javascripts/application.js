@@ -15,5 +15,6 @@
 //= require turbolinks
 //= require lib/angular.min
 //= require lib/angular-resource.min
+//= require lib/angular-route.min
 //= require eventBaconApp
 //= require_tree .

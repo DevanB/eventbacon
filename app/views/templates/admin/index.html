@@ -1,5 +1,4 @@
-Admin Index Rails View
-<div ng-app='adminApp' ng-controller='DashboardController'>
+<div ng-app='adminApp'>
   <form ng-submit='addEvent()'>
     <label>Event Name:</label>&nbsp;<input type='text' ng-model='event.name'/><br>
     <label>Date Registration Opens:</label>&nbsp;<input type='text' ng-model='event.registration_open_date'><br>
@@ -8,7 +7,6 @@ Admin Index Rails View
     <label>Event Max Registration Limit:</label>&nbsp;<input type='text' ng-model='event.max_registration_limit'><br>
     <input type='submit' value='Add Event'>
   </form>
-
   Total Active Events: {{eventCount}}
 
   <ul>

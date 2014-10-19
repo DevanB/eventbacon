@@ -1,12 +1,4 @@
 Rails.application.routes.draw do
-
-  get 'event/index'
-  get 'event/create'
-  get 'event/update'
-  get 'event/destroy'
-
-  get 'admin' => 'admin#index'
-
   devise_for :users
 
   unauthenticated :user do
@@ -18,6 +10,9 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     resources :events, only: [:index, :create, :update, :destroy]
   end
+
+  get 'admin' => 'templates#index'
+  get '/templates/:path.html' => 'templates#template', :constraints => { :path => /.+/  }
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
