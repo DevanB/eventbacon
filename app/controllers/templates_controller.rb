@@ -3,6 +3,6 @@ class TemplatesController < ApplicationController
   end
   
   def template
-    render :template => 'template' + params[:path], :layout => nil
+    render :template => 'templates/' + params[:path], :layout => nil
   end
 end

@@ -1,8 +1,8 @@
 var adminApp = angular.module('adminApp',['ngResource', 'ngRoute']);
 
 adminApp.config(function ($routeProvider) {
-  $routeProvider.when('/', { templateUrl: "templates/index.html", controller: "HomeController" } )
-  $routeProvider.when('/admin', { templateUrl: "templates/admin/index.html", controller: "DashboardController" } )
+  $routeProvider.when('/', { redirectTo: '/admin' } );
+  $routeProvider.when('/admin', { templateUrl: "templates/admin/index.html", controller: "DashboardController" } );
 });
 
 adminApp.controller('DashboardController', function($scope, Event){
