@@ -1,8 +1,8 @@
 var adminApp = angular.module('adminApp',['ngResource', 'ngRoute']);
 
 adminApp.config(function ($routeProvider) {
-  $routeProvider.when('/', { redirectTo: '/admin' } );
-  $routeProvider.when('/admin', { templateUrl: "templates/admin/index.html", controller: "DashboardController" } );
+  $routeProvider.when('/', { templateUrl: "templates/admin/index.html", controller: "DashboardController" } );
+  $routeProvider.when('/event/:id', {templateUrl: "templates/admin/event.html", controller: "EventController" } );
 });
 
 adminApp.controller('DashboardController', function($scope, Event){
@@ -16,6 +16,10 @@ adminApp.controller('DashboardController', function($scope, Event){
     $scope.events = events;
     $scope.eventCount = events.length;
   });
+});
+
+adminApp.controller('EventController', function($scope, Event){
+  $scope.test = "Hello Event Page";
 });
 
 adminApp.factory('Event',function($resource, $q){

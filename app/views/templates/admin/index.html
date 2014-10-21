@@ -10,6 +10,6 @@
   Total Active Events: {{eventCount}}
 
   <ul>
-    <li ng-repeat='event in events'>{{event.name}} - {{event.id}}</li>
+    <li ng-repeat='event in events'><a ng-href="#/admin/event/{{event.id}}">{{event.name}} - {{event.id}}</a></li>
   </ul>
 </div>
