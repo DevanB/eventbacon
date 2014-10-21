@@ -17,7 +17,7 @@
       <input ng-model="level.name" type="text" placeholder="Ex: Adult">
       <input ng-model="level.cost" type="number" step="any" min="0" placeholder="Ex: 30.00">
       <input ng-model="level.deposit" type="number" step="any" min="0" placeholder="Ex: 10.00">
-      <button ng-click="removeLevel()">–</button>
+      <button ng-click="removeLevel($index)">–</button>
     </p>
   </div>
   <input type="submit" value="Save Levels">

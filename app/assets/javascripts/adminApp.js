@@ -36,8 +36,8 @@ adminApp.controller('EventController', function($scope, Event, $routeParams){
   $scope.addLevel = function(){
     $scope.levels.push({})
   };
-  $scope.removeLevel = function(){
-    $scope.levels.pop();
+  $scope.removeLevel = function(index){
+    $scope.levels.splice(index,1);
   };
 });
 
