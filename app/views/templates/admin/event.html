@@ -3,15 +3,24 @@
 {{event.end_date}}<br>
 {{event.max_registration_limit}}<br>
 
-<form>
-  <div ng-repeat="input in inputs">
-    <label>Check: </label>
-    <input ng-model="input.check" type="checkbox"/>
-  </div>
-  <input type="submit" value="Save">
-
-</form>
-
+<div>
+  <p>
+    Name:
+    Cost:
+    Deposit:
+  </p>
+</div>
 <button ng-click="addLevel()">Add Level</button>
+<form>
+  <div ng-repeat="level in levels">
+    <p>
+      <input ng-model="level.name" type="text" placeholder="Ex: Adult">
+      <input ng-model="level.cost" type="number" step="any" min="0" placeholder="Ex: 30.00">
+      <input ng-model="level.deposit" type="number" step="any" min="0" placeholder="Ex: 10.00">
+      <button ng-click="removeLevel()">–</button>
+    </p>
+  </div>
+  <input type="submit" value="Save Levels">
+</form>
 
 <a href="#/">Back</a>

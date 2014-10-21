@@ -28,13 +28,16 @@ adminApp.controller('DashboardController', function($scope, Event){
 
 adminApp.controller('EventController', function($scope, Event, $routeParams){
   $scope.test = "Hello Event Page";
-  $scope.inputs = [{check: true}];
+  $scope.levels = [{name: "", cost: "", deposit: ""}];
   Event.find($routeParams.id).then(function(event){
     $scope.event = event;
   });
 
   $scope.addLevel = function(){
-    $scope.inputs.push({})
+    $scope.levels.push({})
+  };
+  $scope.removeLevel = function(){
+    $scope.levels.pop();
   };
 });
 
