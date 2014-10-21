@@ -8,10 +8,10 @@ Rails.application.routes.draw do
   end
 
   namespace :api, defaults: {format: :json} do
-    resources :events, only: [:index, :create, :update, :destroy]
+    resources :events, only: [:index, :show, :create, :update, :destroy]
   end
 
-  get 'admin' => 'templates#index'
+  get 'admin' => 'templates#admin'
   get '/templates/:path.html' => 'templates#template', :constraints => { :path => /.+/  }
 
   # The priority is based upon order of creation: first created -> highest priority.

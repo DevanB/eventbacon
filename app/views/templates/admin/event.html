@@ -1,1 +1,17 @@
-{{test}}
+{{event.name}}<br>
+{{event.start_date}}<br>
+{{event.end_date}}<br>
+{{event.max_registration_limit}}<br>
+
+<form>
+  <div ng-repeat="input in inputs">
+    <label>Check: </label>
+    <input ng-model="input.check" type="checkbox"/>
+  </div>
+  <input type="submit" value="Save">
+
+</form>
+
+<button ng-click="addLevel()">Add Level</button>
+
+<a href="#/">Back</a>

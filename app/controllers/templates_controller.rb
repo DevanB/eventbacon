@@ -1,6 +1,9 @@
 class TemplatesController < ApplicationController
   def index
   end
+
+  def admin
+  end
   
   def template
     render :template => 'templates/' + params[:path], :layout => nil

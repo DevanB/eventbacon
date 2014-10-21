@@ -9,7 +9,14 @@ class Api::EventsController < ApplicationController
     @event = Event.new(event_params)
     if @event.save
       render json: @event
+    else
+      render json: @event.errors, status: 400
     end
+  end
+
+  def show
+    @event = Event.find(params[:id])
+    render json: @event
   end
 
   def update
