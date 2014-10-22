@@ -11,7 +11,7 @@
   </p>
 </div>
 <button ng-click="addLevel()">Add Level</button>
-<form>
+<form ng-submit="saveLevels()">
   <div ng-repeat="level in levels">
     <p>
       <input ng-model="level.name" type="text" placeholder="Ex: Adult">

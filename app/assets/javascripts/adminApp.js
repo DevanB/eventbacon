@@ -8,7 +8,6 @@ adminApp.config(function ($routeProvider) {
 adminApp.controller('DashboardController', function($scope, Event){
   $scope.event = {};
   $scope.events = [];
-
   $scope.addEvent = function(){
     Event.create($scope.event).then(function(event){
       $scope.event.id = event.id;
@@ -26,19 +25,41 @@ adminApp.controller('DashboardController', function($scope, Event){
   });
 });
 
-adminApp.controller('EventController', function($scope, Event, $routeParams){
+adminApp.controller('EventController', function($scope, Event, $routeParams, CostLevel){
   $scope.test = "Hello Event Page";
-  $scope.levels = [{name: "", cost: "", deposit: ""}];
+  $scope.levels = [{event_id: $routeParams.id, name: "", cost: "", deposit: ""}];
   Event.find($routeParams.id).then(function(event){
     $scope.event = event;
   });
-
   $scope.addLevel = function(){
-    $scope.levels.push({})
+    $scope.levels.push({event_id: $routeParams.id})
   };
   $scope.removeLevel = function(index){
     $scope.levels.splice(index,1);
   };
+  $scope.saveLevels = function(){
+    CostLevel.create($scope.levels).then(function(){
+      console.log("levels saved");
+    }, function(errors){
+      $scope.errors = errors;
+    });
+  }
+});
+
+adminApp.factory('CostLevel',function($resource, $q){
+  var exports = {};
+  var resource = $resource('/api/cost_levels/:id', {event_id: '@id'});
+  exports.create = function(cost_level){
+    var deferred = $q.defer();
+    var newCostLevel = new resource({cost_level: cost_level});
+    newCostLevel.$save(function(data){
+      deferred.resolve(data.cost_level);
+    }, function(errors){
+      deferred.reject(errors);
+    });
+    return deferred.promise;
+  }
+  return exports;
 });
 
 adminApp.factory('Event',function($resource, $q){

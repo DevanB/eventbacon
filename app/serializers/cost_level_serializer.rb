@@ -1,3 +1,3 @@
 class CostLevelSerializer < ActiveModel::Serializer
-  attributes :id, :cost, :deposit, :name
+  attributes :id, :event_id, :cost, :deposit, :name
 end
