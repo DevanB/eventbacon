@@ -27,12 +27,11 @@ adminApp.controller('DashboardController', function($scope, Event){
 
 adminApp.controller('EventController', function($scope, Event, $routeParams, CostLevel){
   $scope.test = "Hello Event Page";
-  $scope.levels = [{event_id: $routeParams.id, name: "", cost: "", deposit: ""}];
   Event.find($routeParams.id).then(function(event){
     $scope.event = event;
   });
   CostLevel.all($routeParams.id).then(function(levels){
-    $scope.levels = levels;
+    levels.length > 0 ? $scope.levels = levels : $scope.levels = [{event_id: $routeParams.id, name: "", cost: "", deposit: ""}];
   }, function(errors){
     $scope.errors = errors;
   });
