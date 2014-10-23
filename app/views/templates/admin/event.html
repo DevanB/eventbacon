@@ -4,6 +4,7 @@
 {{event.max_registration_limit}}<br>
 
 <div>
+  <h2>Cost Levels</h2>
   <p>
     Name:
     Cost:
@@ -22,5 +23,11 @@
   </div>
   <input type="submit" value="Save Levels">
 </form>
+
+
+<h2>Groups</h2>
+<div ng-repeat="group in groups">
+  {{group.name}}
+</div>
 
 <a href="#/">Back</a>

@@ -9,7 +9,8 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: :json} do
     resources :events, only: [:index, :show, :create, :update, :destroy]
-    resources :cost_levels, only: [:index, :show, :create, :update, :destroy]
+    resources :cost_levels, only: [:show, :create, :update, :destroy]
+    resources :groups, only: [:index, :show, :create, :update, :destroy]
   end
 
   get 'admin' => 'templates#admin'
