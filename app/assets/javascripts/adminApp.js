@@ -31,6 +31,11 @@ adminApp.controller('EventController', function($scope, Event, $routeParams, Cos
   Event.find($routeParams.id).then(function(event){
     $scope.event = event;
   });
+  CostLevel.all($routeParams.id).then(function(levels){
+    $scope.levels = levels;
+  }, function(errors){
+    $scope.errors = errors;
+  });
   $scope.addLevel = function(){
     $scope.levels.push({event_id: $routeParams.id})
   };
@@ -38,12 +43,13 @@ adminApp.controller('EventController', function($scope, Event, $routeParams, Cos
     $scope.levels.splice(index,1);
   };
   $scope.saveLevels = function(){
-    CostLevel.create($scope.levels).then(function(){
-      console.log("levels saved");
-    }, function(errors){
-      $scope.errors = errors;
+    angular.forEach($scope.levels, function(level){
+      CostLevel.create(level).then(function(){
+      }, function(errors){
+        $scope.errors = errors;
+      });
     });
-  }
+  };
 });
 
 adminApp.factory('CostLevel',function($resource, $q){
@@ -58,7 +64,14 @@ adminApp.factory('CostLevel',function($resource, $q){
       deferred.reject(errors);
     });
     return deferred.promise;
-  }
+  };
+  exports.all = function(id){
+    var deferred = $q.defer();
+    resource.get({id: id}, function(data){
+      deferred.resolve(data.cost_levels);
+    });
+    return deferred.promise;
+  };
   return exports;
 });
 

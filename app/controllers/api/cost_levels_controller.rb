@@ -2,6 +2,8 @@ class Api::CostLevelsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
+    @cost_levels = CostLevel.find(event_id: params[:id])
+    render json: @cost_levels
   end
 
   def create
@@ -11,6 +13,11 @@ class Api::CostLevelsController < ApplicationController
     else
       render json: @cost_level.errors, status: 400
     end
+  end
+
+  def show
+    @cost_level = CostLevel.find(params[:id])
+    render json: @cost_level
   end
 
   def update
