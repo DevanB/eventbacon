@@ -2,7 +2,7 @@ class Api::EventsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    render json: Event.all
+    render json: Event.active
   end
 
   def create
