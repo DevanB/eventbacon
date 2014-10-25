@@ -7,7 +7,7 @@ class Api::GroupsController < ApplicationController
   end
   
   def show
-    @groups = Event.find(params[:id]).groups
+    @groups = Group.find(params[:id])
     render json: @groups
   end
   

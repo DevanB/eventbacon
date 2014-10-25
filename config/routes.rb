@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   end
 
   get 'admin' => 'templates#admin'
+  post '/api/events/:id', :to => 'api/events#update', defaults: {format: :json}
   get '/templates/:path.html' => 'templates#template', :constraints => { :path => /.+/  }
 
   # The priority is based upon order of creation: first created -> highest priority.

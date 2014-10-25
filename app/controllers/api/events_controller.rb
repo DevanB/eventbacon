@@ -20,6 +20,13 @@ class Api::EventsController < ApplicationController
   end
 
   def update
+    @event = Event.find(params[:id])
+
+    if @event.update_attributes(event_params)
+      render json: @event
+    else
+      render json: @event.errors, status: 400
+    end
   end
 
   def destroy
@@ -28,6 +35,6 @@ class Api::EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:name, :registation_open_date, :start_date, :end_date, :max_registration_limit)
+    params.require(:event).permit(:name, :registration_open_date, :start_date, :end_date, :max_registration_limit, cost_levels_attributes: [:name, :cost, :deposit])
   end
 end

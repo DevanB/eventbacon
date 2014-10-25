@@ -31,31 +31,22 @@ adminApp.controller('DashboardController', function($scope, Event, Group){
   });
 });
 
-adminApp.controller('EventController', function($scope, Event, $routeParams, CostLevel, Group){
+adminApp.controller('EventController', function($scope, $routeParams, Event, Group){
+  var handleErrors = function(errors){
+    $scope.errors = errors;
+  };
   Event.find($routeParams.id).then(function(event){
     $scope.event = event;
-  });
-  CostLevel.find($routeParams.id).then(function(levels){
-    levels.length > 0 ? $scope.levels = levels : $scope.levels = [{event_id: $routeParams.id, name: "", cost: "", deposit: ""}];
-  }, function(errors){
-    $scope.errors = errors;
-  });
-  Group.all($routeParams.id).then(function(groups){
-    $scope.groups = groups;
+    $scope.event.cost_levels = event.cost_levels.length > 0 ? event.cost_levels : [{}];
   });
   $scope.addLevel = function(){
-    $scope.levels.push({event_id: $routeParams.id})
+    $scope.event.cost_levels.push({})
   };
   $scope.removeLevel = function(index){
-    $scope.levels.splice(index,1);
+    $scope.event.cost_levels.splice(index,1);
   };
   $scope.saveLevels = function(){
-    angular.forEach($scope.levels, function(level){
-      CostLevel.create(level).then(function(){
-      }, function(errors){
-        $scope.errors = errors;
-      });
-    });
+    Event.create($scope.event).then(null, handleErrors);
   };
 });
 
@@ -64,14 +55,11 @@ adminApp.controller('GroupController', function($scope, $routeParams, Group, Eve
   Group.find($routeParams.id).then(function(group){
     $scope.group = group;
   });
-  Event.find($routeParams.id).then(function(events){
-    $scope.events = events;
-  });
 });
 
 adminApp.factory('Group', function($resource, $q){
   var exports = {};
-  var resource = $resource('/api/groups/:id', {event_id: '@id'});
+  var resource = $resource('/api/groups/:id', {id: '@id'});
   exports.all = function(){
     var deferred = $q.defer();
     resource.get(function(data){
@@ -84,30 +72,7 @@ adminApp.factory('Group', function($resource, $q){
   exports.find = function(id){
     var deferred = $q.defer();
     resource.get({id: id}, function(data){
-      deferred.resolve(data.groups);
-    });
-    return deferred.promise;
-  };
-  return exports;
-});
-
-adminApp.factory('CostLevel',function($resource, $q){
-  var exports = {};
-  var resource = $resource('/api/cost_levels/:id', {event_id: '@id'});
-  exports.create = function(cost_level){
-    var deferred = $q.defer();
-    var newCostLevel = new resource({cost_level: cost_level});
-    newCostLevel.$save(function(data){
-      deferred.resolve(data.cost_level);
-    }, function(errors){
-      deferred.reject(errors);
-    });
-    return deferred.promise;
-  };
-  exports.find = function(id){
-    var deferred = $q.defer();
-    resource.get({id: id}, function(data){
-      deferred.resolve(data.cost_levels);
+      deferred.resolve(data.group);
     });
     return deferred.promise;
   };
@@ -118,8 +83,9 @@ adminApp.factory('Event',function($resource, $q){
   var exports = {};
   var resource = $resource('/api/events/:id', {id: '@id'});
   exports.create = function(event){
+    event.cost_levels_attributes = event.cost_levels
     var deferred = $q.defer();
-    var newEvent = new resource({event: event});
+    var newEvent = new resource({event: event, id: event.id});
     newEvent.$save(function(data){
       deferred.resolve(data.event);
     }, function(errors){

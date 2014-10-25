@@ -13,7 +13,7 @@
 </div>
 <button ng-click="addLevel()">Add Level</button>
 <form ng-submit="saveLevels()">
-  <div ng-repeat="level in levels">
+  <div ng-repeat="level in event.cost_levels">
     <p>
       <input ng-model="level.name" type="text" placeholder="Ex: Adult">
       <input ng-model="level.cost" type="number" step="any" min="0" placeholder="Ex: 30.00">
@@ -26,7 +26,7 @@
 
 
 <h2>Groups</h2>
-<div ng-repeat="group in groups">
+<div ng-repeat="group in event.groups">
   {{group.name}}
 </div>
 
