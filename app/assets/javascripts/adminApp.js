@@ -1,4 +1,4 @@
-var adminApp = angular.module('adminApp',['ngResource', 'ngRoute']);
+var adminApp = angular.module('adminApp',['ngResource', 'ngRoute', 'ui.bootstrap']);
 
 adminApp.config(function ($routeProvider) {
   $routeProvider.when('/', { templateUrl: "templates/admin/index.html", controller: "DashboardController" } );
@@ -6,9 +6,15 @@ adminApp.config(function ($routeProvider) {
   $routeProvider.when('/group/:id', {templateUrl: "templates/admin/group.html", controller: "GroupController"} );
 });
 
+adminApp.controller('NavbarCtrl', function($scope, $location){
+  $scope.isActive = function (viewLocation) { 
+    return viewLocation === $location.path();
+  };
+});
 adminApp.controller('DashboardController', function($scope, Event, Group){
   $scope.event = {};
   $scope.events = [];
+
   $scope.addEvent = function(){
     Event.create($scope.event).then(function(event){
       $scope.event.id = event.id;
@@ -31,7 +37,7 @@ adminApp.controller('DashboardController', function($scope, Event, Group){
   });
 });
 
-adminApp.controller('EventController', function($scope, $routeParams, Event, Group){
+adminApp.controller('EventController', function($scope, $routeParams, Event, Group, alertService){
   var handleErrors = function(errors){
     $scope.errors = errors;
   };
@@ -40,13 +46,14 @@ adminApp.controller('EventController', function($scope, $routeParams, Event, Gro
     $scope.event.cost_levels = event.cost_levels.length > 0 ? event.cost_levels : [{}];
   });
   $scope.addLevel = function(){
-    $scope.event.cost_levels.push({})
+    $scope.event.cost_levels.push({});
+    alertService.addAlert('success', 'Cost Level Added!', 3000);
   };
   $scope.removeLevel = function(index){
     $scope.event.cost_levels.splice(index,1);
   };
   $scope.saveLevels = function(){
-    Event.create($scope.event).then(null, handleErrors);
+    Event.create($scope.event).then(alertService.addAlert('success','Event successfully saved.'),handleErrors);
   };
 });
 
@@ -79,7 +86,7 @@ adminApp.factory('Group', function($resource, $q){
   return exports;
 });
 
-adminApp.factory('Event',function($resource, $q){
+adminApp.factory('Event', function($resource, $q){
   var exports = {};
   var resource = $resource('/api/events/:id', {id: '@id'});
   exports.create = function(event){
@@ -110,4 +117,28 @@ adminApp.factory('Event',function($resource, $q){
     return deferred.promise;
   };
   return exports;
+});
+
+adminApp.factory('alertService', function($rootScope, $timeout) {
+  var alertService = {};
+  $rootScope.alerts = [];
+  alertService.addAlert = function(type, msg, timeout) {
+    $rootScope.alerts.push({type: type, msg: msg,
+      close: function() {
+        alertService.closeAlert(this);
+      }
+    });
+    if (timeout) { 
+      $timeout(function(){ 
+        alertService.closeAlert(this)
+      }, timeout); 
+    }
+  };
+  alertService.closeAlert = function(alert) {
+    return this.closeAlertIdx($rootScope.alerts.indexOf(alert));
+  };
+  alertService.closeAlertIdx = function(index) {
+    return $rootScope.alerts.splice(index, 1);
+  };
+  return alertService;
 });

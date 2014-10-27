@@ -1,9 +1,15 @@
-{{event.name}}<br>
-{{event.start_date | date: 'fullDate'}}<br>
-{{event.end_date | date: 'fullDate'}}<br>
-{{event.max_registration_limit}}<br>
+<alert ng-repeat="alert in alerts" type="alert.type" close="alert.close()">{{alert.msg}}</alert>
 
-<div>
+<ol class="breadcrumb">
+  <li><a href="#/">Dashboard</a></li>
+  <li class="active">{{event.name}}</li>
+</ol>
+
+<h3>{{event.name}}</h2>
+{{event.start_date | date: 'shortDate'}} - {{event.end_date | date: 'shortDate'}}<br>
+Max Registration Limit: {{event.max_registration_limit}}<br>
+
+<div class="panel">
   <h2>Cost Levels</h2>
   <p>
     Name:
@@ -29,5 +35,3 @@
 <div ng-repeat="group in event.groups">
   {{group.name}}
 </div>
-
-<a href="#/">Back</a>
