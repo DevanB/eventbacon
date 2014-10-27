@@ -2,8 +2,10 @@ var adminApp = angular.module('adminApp',['ngResource', 'ngRoute', 'ui.bootstrap
 
 adminApp.config(function ($routeProvider) {
   $routeProvider.when('/', { templateUrl: "templates/admin/index.html", controller: "DashboardController" } );
+  $routeProvider.when('/events', { templateUrl: "templates/admin/events.html", controller: "EventsController" } );
   $routeProvider.when('/event/:id', {templateUrl: "templates/admin/event.html", controller: "EventController" } );
-  $routeProvider.when('/group/:id', {templateUrl: "templates/admin/group.html", controller: "GroupController"} );
+  $routeProvider.when('/groups', { templateUrl: "templates/admin/groups.html", controller: "GroupsController" } );
+  $routeProvider.when('/group/:id', {templateUrl: "templates/admin/group.html", controller: "GroupController" } );
 });
 
 adminApp.controller('NavbarCtrl', function($scope, $location){
@@ -37,6 +39,10 @@ adminApp.controller('DashboardController', function($scope, Event, Group){
   });
 });
 
+adminApp.controller('EventsController', function($scope, Event){
+  $scope.test = "Events Page";
+});
+
 adminApp.controller('EventController', function($scope, $routeParams, Event, Group, alertService){
   var handleErrors = function(errors){
     $scope.errors = errors;
@@ -47,7 +53,6 @@ adminApp.controller('EventController', function($scope, $routeParams, Event, Gro
   });
   $scope.addLevel = function(){
     $scope.event.cost_levels.push({});
-    alertService.addAlert('success', 'Cost Level Added!', 3000);
   };
   $scope.removeLevel = function(index){
     $scope.event.cost_levels.splice(index,1);
@@ -57,8 +62,11 @@ adminApp.controller('EventController', function($scope, $routeParams, Event, Gro
   };
 });
 
+adminApp.controller('GroupsController', function($scope, Group){
+  $scope.test = "Groups Page";
+});
+
 adminApp.controller('GroupController', function($scope, $routeParams, Group, Event){
-  $scope.test = "hello group page!";
   Group.find($routeParams.id).then(function(group){
     $scope.group = group;
   });

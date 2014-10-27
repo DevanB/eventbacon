@@ -18,12 +18,16 @@
   </ul>
 </div>
 
-<h2>Groups</h2>
-<ul>
-  <li ng-repeat="group in groups"><a ng-href="#/group/{{group.id}}">{{group.name}} - {{group.id}}</a></li>
-</ul>
-
-
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Groups</h3>
+  </div>
+  <div class="panel-body">
+    <ul>
+      <li ng-repeat="group in groups"><a ng-href="#/group/{{group.id}}">{{group.name}} - {{group.id}}</a></li>
+    </ul>
+  </div>
+</div>
 
 <form ng-submit='addEvent()'>
   <label>Event Name:</label>&nbsp;<input type='text' ng-model='event.name'/><br>

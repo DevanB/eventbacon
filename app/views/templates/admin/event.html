@@ -6,32 +6,62 @@
 </ol>
 
 <h3>{{event.name}}</h2>
-{{event.start_date | date: 'shortDate'}} - {{event.end_date | date: 'shortDate'}}<br>
-Max Registration Limit: {{event.max_registration_limit}}<br>
+<p>
+  {{event.start_date | date: 'shortDate'}} - {{event.end_date | date: 'shortDate'}}<br> Max Registration Limit: {{event.max_registration_limit}}
+</p>
 
-<div class="panel">
-  <h2>Cost Levels</h2>
-  <p>
-    Name:
-    Cost:
-    Deposit:
-  </p>
-</div>
-<button ng-click="addLevel()">Add Level</button>
-<form ng-submit="saveLevels()">
-  <div ng-repeat="level in event.cost_levels">
-    <p>
-      <input ng-model="level.name" type="text" placeholder="Ex: Adult">
-      <input ng-model="level.cost" type="number" step="any" min="0" placeholder="Ex: 30.00">
-      <input ng-model="level.deposit" type="number" step="any" min="0" placeholder="Ex: 10.00">
-      <button ng-click="removeLevel($index)">–</button>
-    </p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Cost Levels</h3>
   </div>
-  <input type="submit" value="Save Levels">
-</form>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-xs-3"><strong>&nbsp;Name:</strong></div>
+      <div class="col-xs-3"><strong>&nbsp;Cost:</strong></div>
+      <div class="col-xs-3"><strong>&nbsp;Deposit:</strong></div>
+      <div class="col-xs-3"><button class="btn btn-success btn-xs pull-right" ng-click="addLevel()"><strong>+</strong>&nbsp;Add Level</button></div>
+    </div>
+    <form ng-submit="saveLevels()">
+      <div ng-repeat="level in event.cost_levels">
+        <div class="row">
+          <div class="col-xs-3">
+            <input ng-model="level.name" type="text" class="form-control input-sm" autocomplete="off" placeholder="Ex: Adult">
+          </div>
+          <div class="col-xs-3">
+            <div class="input-group">
+              <span class="input-group-addon">$</span>
+              <input ng-model="level.cost" type="number" step="any" min="0" class="form-control input-sm" placeholder="Ex: 30.00">
+              <span class="input-group-addon">.00</span>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <div class="input-group">
+              <span class="input-group-addon">$</span>
+              <input ng-model="level.deposit" type="number" step="any" min="0" class="form-control input-sm" placeholder="Ex: 10.00">
+              <span class="input-group-addon">.00</span>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <button ng-click="removeLevel($index)" class="btn btn-default btn-xs"><strong>&nbsp;–&nbsp;</strong></button>
+          </div>
+        </div><br/>
+      </div>
+      <div class="row">
+        <div class="col-xs-3">
+          <input class="btn btn-info" type="submit" value="Save Levels">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 
-
-<h2>Groups</h2>
-<div ng-repeat="group in event.groups">
-  {{group.name}}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Groups</h3>
+  </div>
+  <div class="panel-body">
+    <div ng-repeat="group in event.groups">
+      {{group.name}}
+    </div>
+  </div>
 </div>
