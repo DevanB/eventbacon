@@ -1,0 +1,6 @@
+<div class="eventTile" ng-init="color = setColor()" ng-style='{ "background-color" : "rgba(" + color[0] + ")" }'>
+  <a ng-href="#/event/{{event.id}}">
+    <span class="eventName pull-right" ng-style='{ "color" : "rgba(" + color[1] + ")" }'>{{event.name}}</span><br/>
+    <span class="startDate pull-right" ng-style='{ "color" : "rgba(" + color[1] + ")" }'>{{event.start_date | date: 'shortDate'}}</span>
+  </a>
+</div>

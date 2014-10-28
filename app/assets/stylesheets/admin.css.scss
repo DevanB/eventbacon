@@ -1,3 +1,20 @@
 // Place all the styles related to the Admin controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.eventTile {
+  width:150px;
+  height:150px;
+  padding-right:15px;
+  & span {
+    position:relative;
+    &.eventName {
+      font-size:125%;
+      font-weight:bold;
+      top:55px;
+    }
+    &.startDate {
+      top:65px;
+    }
+  }
+}

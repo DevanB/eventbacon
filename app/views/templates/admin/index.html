@@ -1,33 +1,31 @@
-<div>
+<div class="row">
   <p ng-repeat="error in errors">{{error}}</p>
 
   <ol class="breadcrumb">
     <li class="active">Dashboard</li>
   </ol>
   Total Active Events: {{eventCount}}
-
-  <ul>
-    <li ng-repeat='event in events'>
-      <div>
-        <a ng-href="#/event/{{event.id}}">
-          {{event.name}}<br/>
-          {{event.start_date | date: 'shortDate'}}
-        </a>
-      </div>
-    </li>
+</div>
+<div class="row">
+  <ul class="list-inline">
+      <li ng-repeat='event in events'>
+        <event-tile></event-tile>
+      </li>
   </ul>
 </div>
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Groups</h3>
-  </div>
-  <div class="panel-body">
-    <ul>
-      <li ng-repeat="group in groups"><a ng-href="#/group/{{group.id}}">{{group.name}} - {{group.id}}</a></li>
-    </ul>
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Groups</h3>
+    </div>
+    <div class="panel-body">
+      <ul>
+        <li ng-repeat="group in groups"><a ng-href="#/group/{{group.id}}">{{group.name}} - {{group.id}}</a></li>
+      </ul>
+    </div>
   </div>
 </div>
+
 
 <form ng-submit='addEvent()'>
   <label>Event Name:</label>&nbsp;<input type='text' ng-model='event.name'/><br>

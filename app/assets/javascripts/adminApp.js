@@ -150,3 +150,20 @@ adminApp.factory('alertService', function($rootScope, $timeout) {
   };
   return alertService;
 });
+
+adminApp.directive('eventTile', function eventTile(){
+  'use strict';
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: true,
+    templateUrl: 'templates/admin/eventTile.tmpl.html',
+    controller: function($scope){
+      $scope.colors = [["255, 0, 0, 0.75","255,255, 255,100"],["0, 128, 0, 0.75","255,255,255,100"],["255, 165, 0, 0.75","255,255,255,100"],["173, 216, 230, 0.75","0,0,0,0.75"],["128, 0, 128, 0.75","255,255,255,100"]];
+      $scope.setColor = function(){
+        return $scope.colors[Math.floor(Math.random()*$scope.colors.length)];
+      };
+    },
+    link: function(){}
+  }
+});
