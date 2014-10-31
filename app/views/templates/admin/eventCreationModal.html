@@ -1,0 +1,16 @@
+<form name="eventForm" ng-submit="addEvent(eventForm)">
+  <div class="modal-header">
+    <h3 class="modal-title">Create An Event</h3>
+  </div>
+  <div class="modal-body">
+    <label>Event Name:</label>&nbsp;<input type='text' ng-model='event.name'/><br>
+    <label>Date Registration Opens:</label>&nbsp;<input type='text' ng-model='event.registration_open_date'><br>
+    <label>Date Event Starts:</label>&nbsp;<input type='text' ng-model='event.start_date'><br>
+    <label>Date Event Ends:</label>&nbsp;<input type='text' ng-model='event.end_date'><br>
+    <label>Event Max Registration Limit:</label>&nbsp;<input type='text' ng-model='event.max_registration_limit'><br>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" type="submit">Create Event</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</form>

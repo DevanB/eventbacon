@@ -5,16 +5,17 @@
 .eventTile {
   width:150px;
   height:150px;
-  padding-right:15px;
+  padding:15px;
+  margin:5px;
   & span {
     position:relative;
     &.eventName {
       font-size:125%;
       font-weight:bold;
-      top:55px;
+      top:40px;
     }
     &.startDate {
-      top:65px;
+      top:50px;
     }
   }
 }

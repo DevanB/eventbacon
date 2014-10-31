@@ -1,4 +1,4 @@
-var adminApp = angular.module('adminApp',['ngResource', 'ngRoute', 'ui.bootstrap']);
+var adminApp = angular.module('adminApp',['ngResource', 'ngRoute', 'ui.bootstrap', 'angular.filter']);
 
 adminApp.config(function ($routeProvider) {
   $routeProvider.when('/', { templateUrl: "templates/admin/index.html", controller: "DashboardController" } );
@@ -13,17 +13,28 @@ adminApp.controller('NavbarCtrl', function($scope, $location){
     return viewLocation === $location.path();
   };
 });
-adminApp.controller('DashboardController', function($scope, Event, Group){
+adminApp.controller('DashboardController', function($scope, $modal, Event, Group){
   $scope.event = {};
   $scope.events = [];
+  $scope.open = function(size) {
+    var modalInstance = $modal.open({
+      templateUrl: 'templates/admin/eventCreationModal.html',
+      controller: 'EventCreationModalCtrl',
+      backdrop: true,
+      keyboard: false,
+      size: size
+    });
 
-  $scope.addEvent = function(){
-    Event.create($scope.event).then(function(event){
-      $scope.event.id = event.id;
-      $scope.events.push($scope.event);
-      $scope.event = {};
-    }, function(errors){
-      $scope.errors = errors;
+    modalInstance.result.then(function(event) {
+      console.log(event);
+      // Event.create(event).then(function(event){
+      //   $scope.event.id = event.id;
+      //   $scope.events.push($scope.event);
+      //   $scope.event = {};
+      //   //goto event page
+      // }, function(errors){
+      //   $scope.errors = errors;
+      // });
     });
   };
   Event.all().then(function(events){
@@ -37,6 +48,16 @@ adminApp.controller('DashboardController', function($scope, Event, Group){
   }, function(errors){
     $scope.errors = errors;
   });
+});
+
+adminApp.controller('EventCreationModalCtrl', function EventCreationModalCtrl($scope, $modalInstance){
+  event = {};
+  $scope.addEvent = function(){
+    $modalInstance.close(event);
+  };
+  $scope.cancel = function(){
+    $modalInstance.dismiss('cancel');
+  };
 });
 
 adminApp.controller('EventsController', function($scope, Event){
@@ -159,7 +180,7 @@ adminApp.directive('eventTile', function eventTile(){
     scope: true,
     templateUrl: 'templates/admin/eventTile.tmpl.html',
     controller: function($scope){
-      $scope.colors = [["255, 0, 0, 0.75","255,255, 255,100"],["0, 128, 0, 0.75","255,255,255,100"],["255, 165, 0, 0.75","255,255,255,100"],["173, 216, 230, 0.75","0,0,0,0.75"],["128, 0, 128, 0.75","255,255,255,100"]];
+      $scope.colors = [["255, 0, 0, 0.75","255,255, 255,100"],["0, 128, 0, 0.75","255,255,255,100"],["255, 140, 0, 0.75","255,255,255,100"],["173, 216, 230, 0.75","0,0,0,0.75"],["128, 0, 128, 0.75","255,255,255,100"]];
       $scope.setColor = function(){
         return $scope.colors[Math.floor(Math.random()*$scope.colors.length)];
       };
